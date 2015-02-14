@@ -1,5 +1,4 @@
 ﻿using UnityEngine;
-using System.Collections;
 
 namespace Assets.Scripts.Enemy
 {
@@ -19,18 +18,5 @@ namespace Assets.Scripts.Enemy
     public abstract class Instruction : MonoBehaviour
     {
         public new abstract InstructionType GetType();
-    }
-
-    /// <summary>
-    /// Basic movement instruction, allows for setting a number of waypoints to follow.
-    /// </summary>
-    public class MoveInstruction : Instruction
-    {
-        public Vector2[] Waypoints;
-
-        public override InstructionType GetType()
-        {
-            return InstructionType.Move;
-        }
     }
 }
