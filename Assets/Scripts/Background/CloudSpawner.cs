@@ -19,10 +19,8 @@ public class CloudSpawner : ObjectPool
 
     private void SpawnClouds()
     {
-        Debug.Log("SpawnClouds");
         if (Random.Range(1,100) > cloudChance)
         {
-            Debug.Log("Not spawning.");
             return;
         }
 
