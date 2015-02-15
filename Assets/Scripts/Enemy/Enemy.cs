@@ -20,6 +20,7 @@ namespace Assets.Scripts.Enemy
 
         // Weapon related stuff.
         public WeaponSystem Weapons; // List of weapons the enemy carries.
+        private bool _shooting = false;
 
 
         private int _instructionCounter = 0; // The next instruction to parse.
@@ -59,18 +60,33 @@ namespace Assets.Scripts.Enemy
             switch (instruction.GetType())
             {
                 case InstructionType.Move:
-                    // Handle movement.
                     return Move((MoveInstruction) instruction);
+
                 case InstructionType.Shoot:
-                    // Handle shooting.
-                    break;
+                    if (!_shooting)
+                    {
+                        Weapons.Engage();
+                        _shooting = true;
+                    }
+                    if (Shoot((ShootInstruction) instruction))
+                    {
+                        Weapons.Disengage();
+                        _shooting = false;
+                        return true;
+                    }
+                    return false;
+
                 case InstructionType.MoveAndShoot:
-                    // Handle movement.
-                    // Handle shooting.
-                    break;
-                default:
-                    // Dafuq is this.
-                    break;
+                    if (!_shooting)
+                    {
+                        Weapons.Engage();
+                        _shooting = true;
+                    }
+                    var done = Move((MoveInstruction) instruction);
+                    if (!done) return false;
+                    Weapons.Disengage();
+                    _shooting = false;
+                    return true;
             }
             return false;
         }
@@ -103,6 +119,11 @@ namespace Assets.Scripts.Enemy
             newPostion = Vector3.MoveTowards(_rb2D.position, wp.Position, wp.Speed * Time.deltaTime);
             _rb2D.MovePosition(newPostion);
             return false;
+        }
+
+        private bool Shoot(ShootInstruction instruction)
+        {
+            return instruction.ShootFor(Time.fixedDeltaTime);
         }
     }
 }
