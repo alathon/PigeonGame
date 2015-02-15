@@ -1,16 +1,18 @@
 ﻿using System;
 using UnityEngine;
-using System.Collections;
 
-[Serializable]
-public class Waypoint
+namespace Assets.Scripts.Enemy
 {
-    public Vector2 Position;
-    public float TimeToTarget = 1f;
-
-    public Waypoint(Vector2 position, float timeToTarget)
+    [Serializable]
+    public class Waypoint
     {
-        this.Position = position;
-        this.TimeToTarget = timeToTarget;
+        public Vector2 Position;
+        public float Speed = 1f;
+
+        public Waypoint(Vector2 position, float speed)
+        {
+            this.Position = position;
+            this.Speed = speed;
+        }
     }
 }
