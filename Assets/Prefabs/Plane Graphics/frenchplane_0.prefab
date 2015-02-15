@@ -1,69 +1,55 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &155496
+--- !u!1 &152632
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 455496}
-  - 114: {fileID: 11455496}
-  - 50: {fileID: 5055496}
-  - 212: {fileID: 21249766}
+  - 4: {fileID: 452632}
+  - 212: {fileID: 21252632}
+  - 95: {fileID: 9552632}
   m_Layer: 0
-  m_Name: StraightLineBullet
+  m_Name: frenchplane_0
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &455496
+--- !u!4 &452632
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155496}
+  m_GameObject: {fileID: 152632}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!50 &5055496
-Rigidbody2D:
+--- !u!95 &9552632
+Animator:
+  serializedVersion: 3
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155496}
-  m_Mass: 1
-  m_LinearDrag: 0
-  m_AngularDrag: .0500000007
-  m_GravityScale: 0
-  m_FixedAngle: 0
-  m_IsKinematic: 1
-  m_Interpolate: 0
-  m_SleepingMode: 1
-  m_CollisionDetection: 0
---- !u!114 &11455496
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155496}
+  m_GameObject: {fileID: 152632}
   m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b24764e0c46e46d438088e7af5a946ea, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  baseSpeed: .00999999978
-  modifiedSpeed: 1
---- !u!212 &21249766
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 4f4977f8cd2baa14f81fc3b2039912e7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 1
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+--- !u!212 &21252632
 SpriteRenderer:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 155496}
+  m_GameObject: {fileID: 152632}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -78,7 +64,7 @@ SpriteRenderer:
   m_ScaleInLightmap: 1
   m_SortingLayerID: 129433131
   m_SortingOrder: 1
-  m_Sprite: {fileID: 21300000, guid: f89f5dfec1db549449e97d334901c629, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c692b020722c91b4493261af34e74a86, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1001 &100100000
 Prefab:
@@ -89,6 +75,6 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 155496}
+  m_RootGameObject: {fileID: 152632}
   m_IsPrefabParent: 1
   m_IsExploded: 1
