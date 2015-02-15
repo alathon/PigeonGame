@@ -1,4 +1,5 @@
-﻿using UnityEngine;
+﻿using System.Linq;
+using UnityEngine;
 
 namespace Assets.Scripts.Weapons
 {
@@ -9,14 +10,25 @@ namespace Assets.Scripts.Weapons
     {
         public Weapon[] Weapons;
 
-        // Use this for initialization
-        void Start () {
-	
+        public void Engage()
+        {
+            this.gameObject.SetActive(true);            
         }
-	
-        // Update is called once per frame
+
+        public void Disengage()
+        {
+            for (int i = 0; i < Weapons.Length; i++)
+            {
+                Weapons[i].Stop();
+            }
+            this.gameObject.SetActive(true);            
+        }
+
         void Update () {
-	
+            for (int i = 0; i < Weapons.Length; i++)
+            {
+                if(Weapons[i].CanFire()) Weapons[i].Fire();
+            }
         }
     }
 }
