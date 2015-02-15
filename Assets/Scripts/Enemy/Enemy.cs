@@ -11,9 +11,8 @@ namespace Assets.Scripts.Enemy
     public class Enemy : MonoBehaviour
     {
         // Basic stats
-        public Vector2 Position;     // Enemies position on screen.
-        public float BaseSpeed = 5f; // Enemies base movement speed.
-        public int Healthpoints = 100;
+        public Vector2 Position;       // Enemies position on screen.
+        public int Healthpoints = 100; // HP for enemy.
 
         // Navigation/AI related stuff.
         public List<Instruction> Instructions;             // List of Instructions the AI must carry out.
@@ -34,13 +33,7 @@ namespace Assets.Scripts.Enemy
 	
         // Update is called once per physics frame
         void FixedUpdate () {
-            // Parse the next instruction in the instruction list, if the instruction was not completed,
-            // as if the destination of Move was not reached, just exit.
-            var completedInstruction = ParseInstruction(Instructions[_instructionCounter]);
-            if (!completedInstruction) return;
 
-            // Otherwise increase instruction counter and take appropriate action.
-            _instructionCounter++;
             if (_instructionCounter >= Instructions.Count && RepeatInstructionsOnCompletion)
             {
                 // We went through the list and was told to stort over. Go to first instruction.
@@ -48,13 +41,17 @@ namespace Assets.Scripts.Enemy
             }
             else if (_instructionCounter >= Instructions.Count && !RepeatInstructionsOnCompletion)
             {
-                // We went through the list but should not start over. Create an instruction to just stand still.
-                Instructions.Clear();
-                var moveInst = new MoveInstruction();
-                moveInst.Waypoints.Add(new Waypoint(transform.position, 1f));
-                Instructions.Add(moveInst);
-                _instructionCounter = 0;
+                // We went through the list but should not start over. Stay still.
+                return;
             }
+
+            // Parse the next instruction in the instruction list, if the instruction was not completed,
+            // as if the destination of Move was not reached, just exit.
+            var completedInstruction = ParseInstruction(Instructions[_instructionCounter]);
+            if (!completedInstruction) return;
+
+            // Otherwise increase instruction counter.
+            _instructionCounter++;
         }
 
         private bool ParseInstruction(Instruction instruction)
@@ -64,7 +61,6 @@ namespace Assets.Scripts.Enemy
                 case InstructionType.Move:
                     // Handle movement.
                     return Move((MoveInstruction) instruction);
-                    break;
                 case InstructionType.Shoot:
                     // Handle shooting.
                     break;
@@ -79,6 +75,7 @@ namespace Assets.Scripts.Enemy
             return false;
         }
 
+        // Returns true of the instruction is completed (no more waypoints.)
         private bool Move(MoveInstruction instruction)
         {
             // Calculate distance to waypoint
@@ -91,18 +88,19 @@ namespace Assets.Scripts.Enemy
                 // If we're reasonably close and there is more waypoints, switch WP and move.
                 instruction.SwitchWaypoint();
                 wp = instruction.GetCurrentWaypoint();
-                newPostion = Vector3.MoveTowards(_rb2D.position, wp.Position, (1f / BaseSpeed) * Time.deltaTime);
+                newPostion = Vector3.MoveTowards(_rb2D.position, wp.Position, wp.Speed * Time.deltaTime);
                 _rb2D.MovePosition(newPostion);
                 return false;
             }
             if (sqrRemainingDistance < float.Epsilon && !instruction.HasNextWaypoint())
             {
-                // If we're close but there is no WP, simply return, we'll move next tick.
+                // If we're close but there is no new WP, simply return, we'll move next tick.
+                instruction.SwitchWaypoint(); // Just roll it over if we need to revisit.
                 return true;
             }
-            
+
             // We're not close, lets move!
-            newPostion = Vector3.MoveTowards(_rb2D.position, wp.Position, (1f / BaseSpeed) * Time.deltaTime);
+            newPostion = Vector3.MoveTowards(_rb2D.position, wp.Position, wp.Speed * Time.deltaTime);
             _rb2D.MovePosition(newPostion);
             return false;
         }

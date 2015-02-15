@@ -1,14 +1,14 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &164802
+--- !u!1 &172970
 GameObject:
   m_ObjectHideFlags: 0
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
   serializedVersion: 4
   m_Component:
-  - 4: {fileID: 464802}
-  - 114: {fileID: 11464802}
+  - 4: {fileID: 472970}
+  - 114: {fileID: 11472970}
   m_Layer: 0
   m_Name: SampleMoveInstruction
   m_TagString: Untagged
@@ -16,32 +16,40 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &464802
+--- !u!4 &472970
 Transform:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 164802}
+  m_GameObject: {fileID: 172970}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: -.837422788, y: .607504666, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
---- !u!114 &11464802
+--- !u!114 &11472970
 MonoBehaviour:
   m_ObjectHideFlags: 1
   m_PrefabParentObject: {fileID: 0}
   m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 164802}
+  m_GameObject: {fileID: 172970}
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 988af4cbd2c59a34cb30f551681cb5e8, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   Waypoints:
-  - {x: 1, y: 1}
-  - {x: 2, y: 2}
+  - Position: {x: 0, y: 0}
+    Speed: 5
+  - Position: {x: 1, y: 1}
+    Speed: 5
+  - Position: {x: 3, y: 3}
+    Speed: 5
+  - Position: {x: -3, y: -3}
+    Speed: 50
+  - Position: {x: 4, y: 0}
+    Speed: 5
 --- !u!1001 &100100000
 Prefab:
   m_ObjectHideFlags: 1
@@ -51,6 +59,6 @@ Prefab:
     m_Modifications: []
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 0}
-  m_RootGameObject: {fileID: 164802}
+  m_RootGameObject: {fileID: 172970}
   m_IsPrefabParent: 1
   m_IsExploded: 1
