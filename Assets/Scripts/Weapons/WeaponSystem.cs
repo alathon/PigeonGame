@@ -21,7 +21,8 @@ namespace Assets.Scripts.Weapons
             {
                 Weapons[i].Stop();
             }
-            this.gameObject.SetActive(true);            
+
+            this.gameObject.SetActive(false);            
         }
 
         void Update () {

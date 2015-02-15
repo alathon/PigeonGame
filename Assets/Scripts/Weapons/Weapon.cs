@@ -28,6 +28,7 @@ namespace Assets.Scripts.Weapons
 
         public void Stop()
         {
+            Debug.Log("Stopping " + this.name);
             StopAllCoroutines();
         }
 
