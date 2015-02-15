@@ -12,19 +12,21 @@ public class BulletWeapon : Weapon
     [SerializeField] private bool rotateOnShot = false;
     [SerializeField] private float timeBetweenShots = 0f;
 
-    // TODO: Use bullet cache instead of instantiating new bullets.
     protected override IEnumerator Act()
     {
-        Quaternion current = this.transform.rotation;
+        var current = this.transform.rotation;
 
-        for (int i = 0; i < this.shots; i++)
+        for (var i = 0; i < this.shots; i++)
         {
-            Instantiate(bulletPrefab, this.transform.position, this.transform.rotation);
-            if(this.rotateOnShot) this.transform.Rotate(Vector3.forward * this.rotationPerShot);
+            var bullet = BulletPoolManager.Instance.GetGameObject(this.bulletPrefab.name);
+            if (bullet == null) continue;
 
+            bullet.transform.rotation = this.transform.rotation;
+            bullet.transform.position = this.transform.position;
+            if (this.rotateOnShot) this.transform.Rotate(Vector3.forward * this.rotationPerShot);
+            bullet.gameObject.SetActive(true);
             if (this.timeBetweenShots > float.Epsilon) yield return new WaitForSeconds(timeBetweenShots);
         }
-
         if(this.rotateOnShot) this.transform.rotation = current;
     }
 }

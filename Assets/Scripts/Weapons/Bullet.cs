@@ -16,7 +16,7 @@ public class Bullet : MonoBehaviour
         // WTF! MAGIC NUMBERS!
         if (Vector2.Distance(this.transform.position, Vector2.zero) > 10)
         {
-            Destroy(this.gameObject);
+            this.gameObject.SetActive(false);
         }        
     }
 
