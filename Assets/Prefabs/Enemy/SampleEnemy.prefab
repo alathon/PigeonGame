@@ -157,7 +157,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: {x: 0, y: 0}
-  BaseSpeed: 1
   Healthpoints: 100
   Instructions:
   - {fileID: 11463932}
@@ -175,8 +174,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   cooldown: 5
-  bulletPrefab: {fileID: 119864, guid: 5c5023b38c7051949bfda76aab9ab68e, type: 2}
-  pattern: 0
+  bulletPrefab: {fileID: 155496, guid: 1b05d6bb0a1ae4c42a1c4faffaf5813e, type: 2}
+  shots: 20
+  rotationPerShot: -10
+  rotateOnShot: 1
+  timeBetweenShots: 0
 --- !u!114 &11463932
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -190,9 +192,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   Waypoints:
   - Position: {x: 1000, y: 1000}
-    TimeToTarget: 1
+    Speed: 0
   - Position: {x: 10, y: 10}
-    TimeToTarget: 5
+    Speed: 0
 --- !u!212 &21249472
 SpriteRenderer:
   m_ObjectHideFlags: 1
