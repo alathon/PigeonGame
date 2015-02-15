@@ -50,7 +50,9 @@ namespace Assets.Scripts.Enemy
             {
                 // We went through the list but should not start over. Create an instruction to just stand still.
                 Instructions.Clear();
-                Instructions.Add(new MoveInstruction(transform.position));
+                var moveInst = new MoveInstruction();
+                moveInst.Waypoints.Add(new Waypoint(transform.position, 1f));
+                Instructions.Add(moveInst);
                 _instructionCounter = 0;
             }
         }
@@ -81,7 +83,7 @@ namespace Assets.Scripts.Enemy
         {
             // Calculate distance to waypoint
             var wp = instruction.GetCurrentWaypoint();
-            var sqrRemainingDistance = (_rb2D.position - wp).sqrMagnitude;
+            var sqrRemainingDistance = (_rb2D.position - wp.Position).sqrMagnitude;
             Vector2 newPostion;
 
             if (sqrRemainingDistance < float.Epsilon && instruction.HasNextWaypoint())
@@ -89,7 +91,7 @@ namespace Assets.Scripts.Enemy
                 // If we're reasonably close and there is more waypoints, switch WP and move.
                 instruction.SwitchWaypoint();
                 wp = instruction.GetCurrentWaypoint();
-                newPostion = Vector3.MoveTowards(_rb2D.position, wp, (1f / BaseSpeed) * Time.deltaTime);
+                newPostion = Vector3.MoveTowards(_rb2D.position, wp.Position, (1f / BaseSpeed) * Time.deltaTime);
                 _rb2D.MovePosition(newPostion);
                 return false;
             }
@@ -100,7 +102,7 @@ namespace Assets.Scripts.Enemy
             }
             
             // We're not close, lets move!
-            newPostion = Vector3.MoveTowards(_rb2D.position, wp, (1f / BaseSpeed) * Time.deltaTime);
+            newPostion = Vector3.MoveTowards(_rb2D.position, wp.Position, (1f / BaseSpeed) * Time.deltaTime);
             _rb2D.MovePosition(newPostion);
             return false;
         }

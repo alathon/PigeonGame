@@ -8,24 +8,14 @@ namespace Assets.Scripts.Enemy
     /// </summary>
     public class MoveInstruction : Instruction
     {
-        public List<Vector2> Waypoints; // List of waypoints to fly through.
+        public List<Waypoint> Waypoints; // List of waypoints to fly through.
         private int _wpIndex = 0;
-
-        /// <summary>
-        /// Single constructor for code use. Mainly when just adding a single move instruction to an enemy.
-        /// </summary>
-        /// <param name="WayPoint">Waytpoint the instruction should travel to.</param>
-        public MoveInstruction(Vector2 WayPoint)
-        {
-            Waypoints = new List<Vector2>();
-            Waypoints.Add(WayPoint);
-        }
 
         /// <summary>
         /// Returns the current waypoint.
         /// </summary>
         /// <returns>current waypoint as a Vector2</returns>
-        public Vector2 GetCurrentWaypoint()
+        public Waypoint GetCurrentWaypoint()
         {
             return Waypoints[_wpIndex];
         }
