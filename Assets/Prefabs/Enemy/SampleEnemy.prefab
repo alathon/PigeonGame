@@ -65,6 +65,22 @@ GameObject:
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
+--- !u!1 &163932
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 463932}
+  - 114: {fileID: 11463932}
+  m_Layer: 0
+  m_Name: SampleMoveInstruction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
 --- !u!4 &449472
 Transform:
   m_ObjectHideFlags: 1
@@ -89,7 +105,7 @@ Transform:
   m_Children:
   - {fileID: 449472}
   m_Father: {fileID: 449478}
-  m_RootOrder: 1
+  m_RootOrder: 2
 --- !u!4 &449476
 Transform:
   m_ObjectHideFlags: 1
@@ -101,7 +117,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 449478}
-  m_RootOrder: 0
+  m_RootOrder: 1
 --- !u!4 &449478
 Transform:
   m_ObjectHideFlags: 1
@@ -112,9 +128,22 @@ Transform:
   m_LocalPosition: {x: .0199999996, y: 3.82999992, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
+  - {fileID: 463932}
   - {fileID: 449476}
   - {fileID: 449474}
   m_Father: {fileID: 0}
+  m_RootOrder: 0
+--- !u!4 &463932
+Transform:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163932}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.857422769, y: -3.22249532, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 449478}
   m_RootOrder: 0
 --- !u!50 &5049472
 Rigidbody2D:
@@ -170,12 +199,28 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Position: {x: 0, y: 0}
-  BaseSpeed: 5
+  BaseSpeed: 1
   Healthpoints: 100
   Instructions:
-  - {fileID: 0}
+  - {fileID: 11463932}
   RepeatInstructionsOnCompletion: 1
   Weapons: {fileID: 11449474}
+--- !u!114 &11463932
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 163932}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 988af4cbd2c59a34cb30f551681cb5e8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - Position: {x: 1000, y: 1000}
+    TimeToTarget: 1
+  - Position: {x: 10, y: 10}
+    TimeToTarget: 5
 --- !u!212 &21249472
 SpriteRenderer:
   m_ObjectHideFlags: 1
