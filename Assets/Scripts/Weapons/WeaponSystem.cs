@@ -1,4 +1,5 @@
-﻿using System.Linq;
+﻿using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Assets.Scripts.Weapons
@@ -8,27 +9,48 @@ namespace Assets.Scripts.Weapons
     /// </summary>
     public class WeaponSystem : MonoBehaviour
     {
-        public Weapon[] Weapons;
+        private List<Weapon> currentlyFiring;
+        private Dictionary<Weapon, int> volleys = new Dictionary<Weapon, int>();
 
-        public void Engage()
+        public void Engage(List<Weapon> weapons, int volleys)
         {
-            this.gameObject.SetActive(true);            
+            this.gameObject.SetActive(true);
+            this.currentlyFiring = weapons;
+            this.volleys.Clear();
+            foreach (var weapon in currentlyFiring)
+            {
+                this.volleys.Add(weapon, volleys);
+            }
         }
 
         public void Disengage()
         {
-            for (int i = 0; i < Weapons.Length; i++)
+            foreach (var weapon in currentlyFiring)
             {
-                Weapons[i].Stop();
+                weapon.Stop();
             }
 
+            this.currentlyFiring.Clear();
+            this.volleys.Clear();
             this.gameObject.SetActive(false);            
         }
 
-        void Update () {
-            for (int i = 0; i < Weapons.Length; i++)
+        void Update ()
+        {
+            if (currentlyFiring.Count == 0) return;
+
+            foreach (var weapon in currentlyFiring)
             {
-                if(Weapons[i].CanFire()) Weapons[i].Fire();
+                if (!weapon.CanFire()) continue;
+
+                if (volleys[weapon] == 0)
+                {
+                    this.Disengage();
+                    return;
+                }
+
+                weapon.Fire();
+                volleys[weapon] -= 1;
             }
         }
     }

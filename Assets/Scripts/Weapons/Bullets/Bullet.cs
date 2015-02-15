@@ -4,8 +4,10 @@ using System.Collections;
 
 public class Bullet : MonoBehaviour
 {
-    [SerializeField] private float speed = 0.01f;
+    [SerializeField] public float baseSpeed = 0.01f;
+    [HideInInspector] public float modifiedSpeed = 1f;
     private Rigidbody2D _rb2D;
+
     void Awake()
     {
         this._rb2D = GetComponent<Rigidbody2D>();
@@ -23,7 +25,7 @@ public class Bullet : MonoBehaviour
 	void FixedUpdate ()
 	{
 	    var dir = this.transform.up;
-	    var dest = this.transform.position + (dir * speed);
+	    var dest = this.transform.position + (dir * baseSpeed * modifiedSpeed);
         this._rb2D.MovePosition(dest);
 	}
 }

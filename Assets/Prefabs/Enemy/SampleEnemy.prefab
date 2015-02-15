@@ -9,7 +9,7 @@ GameObject:
   m_Component:
   - 4: {fileID: 449474}
   - 114: {fileID: 11449474}
-  - 114: {fileID: 11458108}
+  - 114: {fileID: 11429768}
   m_Layer: 0
   m_Name: WeaponSystem
   m_TagString: Untagged
@@ -132,6 +132,25 @@ Rigidbody2D:
   m_Interpolate: 0
   m_SleepingMode: 1
   m_CollisionDetection: 0
+--- !u!114 &11429768
+MonoBehaviour:
+  m_ObjectHideFlags: 1
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 100100000}
+  m_GameObject: {fileID: 149474}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5064c4b854a955042a75cec30d9eaaee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 2
+  bulletPrefab: {fileID: 155496, guid: 1b05d6bb0a1ae4c42a1c4faffaf5813e, type: 2}
+  shots: 100
+  timeBetweenShots: 0
+  rotationPerShot: -12
+  rotateOnShot: 1
+  resetRotationAfterShooting: 0
+  bulletSpeed: 5
 --- !u!114 &11449474
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -143,8 +162,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fda653dac5d1fc945aed8b6c0f965fb5, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Weapons:
-  - {fileID: 11458108}
 --- !u!114 &11449476
 MonoBehaviour:
   m_ObjectHideFlags: 1
@@ -156,29 +173,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 26297e58a810ac34aacc3d08d780eb64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Position: {x: 0, y: 0}
   Healthpoints: 100
   Instructions:
   - {fileID: 11463932}
   RepeatInstructionsOnCompletion: 1
   Weapons: {fileID: 11449474}
---- !u!114 &11458108
-MonoBehaviour:
-  m_ObjectHideFlags: 1
-  m_PrefabParentObject: {fileID: 0}
-  m_PrefabInternal: {fileID: 100100000}
-  m_GameObject: {fileID: 149474}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d76f9de33b8b4a44b8f7fdccdf459ed4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cooldown: 5
-  bulletPrefab: {fileID: 155496, guid: 1b05d6bb0a1ae4c42a1c4faffaf5813e, type: 2}
-  shots: 20
-  rotationPerShot: -10
-  rotateOnShot: 1
-  timeBetweenShots: 0
 --- !u!114 &11463932
 MonoBehaviour:
   m_ObjectHideFlags: 1

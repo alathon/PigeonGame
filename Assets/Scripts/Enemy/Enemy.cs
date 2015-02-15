@@ -11,7 +11,6 @@ namespace Assets.Scripts.Enemy
     public class Enemy : MonoBehaviour
     {
         // Basic stats
-        public Vector2 Position;       // Enemies position on screen.
         public int Healthpoints = 100; // HP for enemy.
 
         // Navigation/AI related stuff.
@@ -31,7 +30,7 @@ namespace Assets.Scripts.Enemy
         {
             _rb2D = GetComponent<Rigidbody2D>();
         }
-	
+
         // Update is called once per physics frame
         void FixedUpdate () {
 
@@ -63,35 +62,36 @@ namespace Assets.Scripts.Enemy
                     return Move((MoveInstruction) instruction);
 
                 case InstructionType.Shoot:
-                    if (!_shooting)
-                    {
-                        Weapons.Engage();
-                        _shooting = true;
-                    }
-                    if (Shoot((ShootInstruction) instruction))
-                    {
-                        Weapons.Disengage();
-                        _shooting = false;
-                        return true;
-                    }
-                    return false;
+                    return Shoot((ShootInstruction) instruction);
 
                 case InstructionType.MoveAndShoot:
-                    if (!_shooting)
-                    {
-                        Weapons.Engage();
-                        _shooting = true;
-                    }
-                    var done = Move((MoveInstruction) instruction);
-                    if (!done) return false;
-                    Weapons.Disengage();
-                    _shooting = false;
-                    return true;
+                    return MoveShoot((MoveShootInstruction) instruction);
             }
             return false;
         }
 
-        // Returns true of the instruction is completed (no more waypoints.)
+        private bool MoveShoot(MoveShootInstruction instruction)
+        {
+            var shoot = Shoot(instruction.shootInstruction);
+            var move = Move(instruction.moveInstruction);
+            return shoot && move;
+        }
+
+        private bool Shoot(ShootInstruction instruction)
+        {
+            if (!_shooting)
+            {
+                Weapons.Engage(instruction.weaponsToFire, instruction.volleys);
+                _shooting = true;
+                return false;
+            }
+            else
+            {
+                return Weapons.gameObject.activeInHierarchy;
+            }
+        }
+
+        // Returns true if the instruction is completed (no more waypoints.)
         private bool Move(MoveInstruction instruction)
         {
             // Calculate distance to waypoint
@@ -119,11 +119,6 @@ namespace Assets.Scripts.Enemy
             newPostion = Vector3.MoveTowards(_rb2D.position, wp.Position, wp.Speed * Time.deltaTime);
             _rb2D.MovePosition(newPostion);
             return false;
-        }
-
-        private bool Shoot(ShootInstruction instruction)
-        {
-            return instruction.ShootFor(Time.fixedDeltaTime);
         }
     }
 }

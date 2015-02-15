@@ -4,13 +4,12 @@ using System.Collections;
 using System.Collections.Generic;
 using Assets.Scripts.Weapons;
 
-public class BulletWeapon : Weapon
+public class RotatingBulletWeapon : BulletWeapon
 {
-    [SerializeField] private GameObject bulletPrefab;
-    [SerializeField] private int shots = 20;
     [SerializeField] private float rotationPerShot = -10f;
     [SerializeField] private bool rotateOnShot = false;
-    [SerializeField] private float timeBetweenShots = 0f;
+    [SerializeField] private bool resetRotationAfterShooting = true;
+    [SerializeField] private float bulletSpeed = 5f;
 
     protected override IEnumerator Act()
     {
@@ -23,10 +22,11 @@ public class BulletWeapon : Weapon
 
             bullet.transform.rotation = this.transform.rotation;
             bullet.transform.position = this.transform.position;
+            bullet.GetComponent<Bullet>().modifiedSpeed = this.bulletSpeed;
             if (this.rotateOnShot) this.transform.Rotate(Vector3.forward * this.rotationPerShot);
             bullet.gameObject.SetActive(true);
             if (this.timeBetweenShots > float.Epsilon) yield return new WaitForSeconds(timeBetweenShots);
         }
-        if(this.rotateOnShot) this.transform.rotation = current;
+        if (this.rotateOnShot && this.resetRotationAfterShooting) this.transform.rotation = current;
     }
 }
