@@ -15,6 +15,7 @@ namespace Assets.Scripts.Enemy
             return InstructionType.Shoot;
         }
 
+        // Called when initialized.
         void Awake()
         {
             _timeRemaining = Duration;

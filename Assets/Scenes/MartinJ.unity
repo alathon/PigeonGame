@@ -566,6 +566,59 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4f39b2b39e03cfb4dbcc834fee8aeb1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &89758406
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 89758408}
+  - 114: {fileID: 89758407}
+  m_Layer: 0
+  m_Name: SampleMoveShootInstruction
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &89758407
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 89758406}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 81f8260bab18d3d4783b58a42c99ea0d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  Waypoints:
+  - Position: {x: 0, y: 1}
+    Speed: 10
+  - Position: {x: -1, y: 0}
+    Speed: 10
+  - Position: {x: 0, y: -1}
+    Speed: 10
+  Waypoints:
+  - Position: {x: 0, y: 1}
+    Speed: 10
+  - Position: {x: -1, y: 0}
+    Speed: 10
+  - Position: {x: 0, y: -1}
+    Speed: 10
+--- !u!4 &89758408
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 89758406}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -.837422788, y: .607504666, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 8
 --- !u!1 &94780939
 GameObject:
   m_ObjectHideFlags: 0
@@ -1121,9 +1174,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   cooldown: .5
   bulletPrefab: {fileID: 155496, guid: 1b05d6bb0a1ae4c42a1c4faffaf5813e, type: 2}
-  shots: 1
+  shots: 36
   rotationPerShot: -10
-  rotateOnShot: 0
+  rotateOnShot: 1
   timeBetweenShots: 0
 --- !u!4 &138047510
 Transform:
@@ -2715,8 +2768,8 @@ MonoBehaviour:
   Position: {x: 0, y: 0}
   Healthpoints: 100
   Instructions:
-  - {fileID: 712899088}
-  RepeatInstructionsOnCompletion: 0
+  - {fileID: 89758407}
+  RepeatInstructionsOnCompletion: 1
   Weapons: {fileID: 138047508}
 --- !u!4 &383213563
 Transform:

@@ -60,11 +60,9 @@ namespace Assets.Scripts.Enemy
             switch (instruction.GetType())
             {
                 case InstructionType.Move:
-                    // Handle movement.
                     return Move((MoveInstruction) instruction);
 
                 case InstructionType.Shoot:
-                    // Handle shooting.
                     if (!_shooting)
                     {
                         Weapons.Engage();
@@ -79,12 +77,16 @@ namespace Assets.Scripts.Enemy
                     return false;
 
                 case InstructionType.MoveAndShoot:
-                    // Handle movement.
-                    // Handle shooting.
-                    break;
-                default:
-                    // Dafuq is this.
-                    break;
+                    if (!_shooting)
+                    {
+                        Weapons.Engage();
+                        _shooting = true;
+                    }
+                    var done = Move((MoveInstruction) instruction);
+                    if (!done) return false;
+                    Weapons.Disengage();
+                    _shooting = false;
+                    return true;
             }
             return false;
         }
