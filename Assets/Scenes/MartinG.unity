@@ -5288,10 +5288,11 @@ Transform:
   m_PrefabInternal: {fileID: 1593028723}
   m_GameObject: {fileID: 769852177}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalPosition: {x: 0, y: -.730000019, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
   - {fileID: 1794112545}
+  - {fileID: 936259061}
   m_Father: {fileID: 889597003}
   m_RootOrder: 1
 --- !u!114 &769852180
@@ -5893,7 +5894,7 @@ GameObject:
   - 114: {fileID: 889597005}
   - 50: {fileID: 889597004}
   m_Layer: 0
-  m_Name: Straight Shot Enemy
+  m_Name: Default Enemy Template
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6457,6 +6458,50 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 4f39b2b39e03cfb4dbcc834fee8aeb1a, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
+--- !u!1 &936259060
+GameObject:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  serializedVersion: 4
+  m_Component:
+  - 4: {fileID: 936259061}
+  - 114: {fileID: 936259062}
+  m_Layer: 0
+  m_Name: Line Bullet Weapon
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &936259061
+Transform:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 936259060}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 769852178}
+  m_RootOrder: 1
+--- !u!114 &936259062
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_PrefabParentObject: {fileID: 0}
+  m_PrefabInternal: {fileID: 0}
+  m_GameObject: {fileID: 936259060}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d76f9de33b8b4a44b8f7fdccdf459ed4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cooldown: 5
+  bulletPrefab: {fileID: 155496, guid: 1b05d6bb0a1ae4c42a1c4faffaf5813e, type: 2}
+  shots: 20
+  timeBetweenShots: .25
+  bulletSpeed: 5
 --- !u!1 &957661423
 GameObject:
   m_ObjectHideFlags: 0
@@ -11266,7 +11311,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   volleys: 1
   weaponsToFire:
-  - {fileID: 1794112546}
+  - {fileID: 936259062}
 --- !u!114 &1545579654
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11665,6 +11710,18 @@ Prefab:
     - target: {fileID: 489904, guid: 1d3aa4ba20d721844848c10f80c4e428, type: 2}
       propertyPath: m_RootOrder
       value: 4
+      objectReference: {fileID: 0}
+    - target: {fileID: 189904, guid: 1d3aa4ba20d721844848c10f80c4e428, type: 2}
+      propertyPath: m_Name
+      value: Default Enemy Template
+      objectReference: {fileID: 0}
+    - target: {fileID: 11462944, guid: 1d3aa4ba20d721844848c10f80c4e428, type: 2}
+      propertyPath: weaponsToFire.Array.data[0]
+      value: 
+      objectReference: {fileID: 936259062}
+    - target: {fileID: 489906, guid: 1d3aa4ba20d721844848c10f80c4e428, type: 2}
+      propertyPath: m_LocalPosition.y
+      value: -.730000019
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_ParentPrefab: {fileID: 100100000, guid: 1d3aa4ba20d721844848c10f80c4e428, type: 2}
@@ -12916,10 +12973,10 @@ MonoBehaviour:
   bulletPrefab: {fileID: 155496, guid: 1b05d6bb0a1ae4c42a1c4faffaf5813e, type: 2}
   shots: 20
   timeBetweenShots: 0
+  bulletSpeed: 5
   rotationPerShot: -10
   rotateOnShot: 1
   resetRotationAfterShooting: 1
-  bulletSpeed: 5
 --- !u!1 &1806449740
 GameObject:
   m_ObjectHideFlags: 0

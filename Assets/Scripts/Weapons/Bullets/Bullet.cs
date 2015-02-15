@@ -24,7 +24,7 @@ public class Bullet : MonoBehaviour
 
 	void FixedUpdate ()
 	{
-	    var dir = this.transform.up;
+	    var dir = -this.transform.up;
 	    var dest = this.transform.position + (dir * baseSpeed * modifiedSpeed);
         this._rb2D.MovePosition(dest);
 	}
