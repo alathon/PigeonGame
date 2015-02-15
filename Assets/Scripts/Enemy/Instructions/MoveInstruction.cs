@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Diagnostics;
 
 namespace Assets.Scripts.Enemy
 {
@@ -16,6 +17,7 @@ namespace Assets.Scripts.Enemy
         /// <returns>current waypoint as a Vector2</returns>
         public Waypoint GetCurrentWaypoint()
         {
+            if (_wpIndex > Waypoints.Count) return null;
             return Waypoints[_wpIndex];
         }
 

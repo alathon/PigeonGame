@@ -9,7 +9,7 @@ namespace Assets.Scripts.Weapons
     /// </summary>
     public class WeaponSystem : MonoBehaviour
     {
-        private List<Weapon> currentlyFiring;
+        private List<Weapon> currentlyFiring = new List<Weapon>();
         private Dictionary<Weapon, int> volleys = new Dictionary<Weapon, int>();
 
         public void Engage(List<Weapon> weapons, int volleys)

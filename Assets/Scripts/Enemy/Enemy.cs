@@ -33,23 +33,30 @@ namespace Assets.Scripts.Enemy
 
         // Update is called once per physics frame
         void FixedUpdate () {
-
-            if (_instructionCounter >= Instructions.Count && RepeatInstructionsOnCompletion)
+            if (_instructionCounter >= Instructions.Count)
             {
                 // We went through the list and was told to stort over. Go to first instruction.
-                _instructionCounter = 0;
-            }
-            else if (_instructionCounter >= Instructions.Count && !RepeatInstructionsOnCompletion)
-            {
-                // We went through the list but should not start over. Stay still.
-                return;
+                if (!RepeatInstructionsOnCompletion)
+                {
+                    this.gameObject.SetActive(false);
+                    return;
+                }
+                else
+                {
+                    _instructionCounter = 0;    
+                }
             }
 
             // Parse the next instruction in the instruction list, if the instruction was not completed,
             // as if the destination of Move was not reached, just exit.
             var completedInstruction = ParseInstruction(Instructions[_instructionCounter]);
-            if (!completedInstruction) return;
+            if (!completedInstruction)
+            {
+                Debug.Log("Still processing instruction " + _instructionCounter);
+                return;
+            }
 
+            Debug.Log("Incrementing counter");
             // Otherwise increase instruction counter.
             _instructionCounter++;
         }
@@ -66,12 +73,27 @@ namespace Assets.Scripts.Enemy
 
                 case InstructionType.MoveAndShoot:
                     return MoveShoot((MoveShootInstruction) instruction);
+
+                case InstructionType.Idle:
+                    return Idle((IdleInstruction) instruction);
             }
             return false;
         }
 
+        private bool Idle(IdleInstruction instruction)
+        {
+            Debug.Log("Idle. Current instruction counter = " + this._instructionCounter);
+            if (instruction.DoneAt < 0f)
+            {
+                instruction.DoneAt = Time.time + instruction.timeToIdle;
+            }
+
+            return Time.time >= instruction.DoneAt;
+        }
+
         private bool MoveShoot(MoveShootInstruction instruction)
         {
+            Debug.Log("MoveShoot. Current instruction counter = " + this._instructionCounter);
             var shoot = Shoot(instruction.shootInstruction);
             var move = Move(instruction.moveInstruction);
             return shoot && move;
@@ -79,23 +101,32 @@ namespace Assets.Scripts.Enemy
 
         private bool Shoot(ShootInstruction instruction)
         {
+            Debug.Log("Shoot. Current instruction counter = " + this._instructionCounter);
             if (!_shooting)
             {
-                Weapons.Engage(instruction.weaponsToFire, instruction.volleys);
                 _shooting = true;
+                Weapons.Engage(instruction.weaponsToFire, instruction.volleys);
                 return false;
             }
             else
             {
-                return Weapons.gameObject.activeInHierarchy;
+                _shooting = Weapons.gameObject.activeInHierarchy;
+                return !_shooting;
             }
         }
 
         // Returns true if the instruction is completed (no more waypoints.)
         private bool Move(MoveInstruction instruction)
         {
+            Debug.Log("Move instruction. Current instruction counter = " + this._instructionCounter);
             // Calculate distance to waypoint
             var wp = instruction.GetCurrentWaypoint();
+            if (wp == null)
+            {
+                Debug.Log("Null waypoint returned for move!!");
+                return true;
+            }
+
             var sqrRemainingDistance = (_rb2D.position - wp.Position).sqrMagnitude;
             Vector2 newPostion;
 

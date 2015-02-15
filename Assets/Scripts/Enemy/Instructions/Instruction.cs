@@ -9,7 +9,8 @@ namespace Assets.Scripts.Enemy
     {
         Move,
         Shoot,
-        MoveAndShoot
+        MoveAndShoot,
+        Idle
     }
 
     /// <summary>
